@@ -1,0 +1,29 @@
+<div class="container">
+    <h2>Lista de Tarefas</h2>
+  
+    <div>
+      <input type="text" placeholder="Nova tarefa"
+             [(ngModel)]="novaTarefa" (keyup.enter)="adicionarTarefa()">
+      <button (click)="adicionarTarefa()">Adicionar</button>
+    </div>
+  
+    <div *ngIf="tarefas.length === 0">
+      <p>Nenhuma tarefa cadastrada.</p>
+    </div>
+  
+    <ul *ngIf="tarefas.length > 0">
+      <li *ngFor="let tarefa of tarefas">
+        <input type="checkbox" [checked]="tarefa.concluida" (change)="alternarStatus(tarefa.id)">
+        <span [style.text-decoration]="tarefa.concluida ? 'line-through' : 'none'">
+          {{ tarefa.descricao }}
+        </span>
+        <button (click)="removerTarefa(tarefa.id)">Remover</button>
+      </li>
+    </ul>
+  
+    <div *ngIf="tarefas.length > 0">
+      <p>Total: {{ tarefas.length }}</p>
+      <p>Concluídas: {{ getConcluidas() }}</p>
+      <p>Pendentes: {{ getPendentes() }}</p>
+    </div>
+  </div>  
